@@ -17,6 +17,12 @@ app.use('/api/chat', chatRouter);
 
 app.get('/health', (_, res) => res.json({ status: 'ok' }));
 
-app.listen(PORT, () => {
-  console.log(`Sales Closer API running on http://localhost:${PORT}`);
-});
+// Local development
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Sales Closer API running on http://localhost:${PORT}`);
+  });
+}
+
+// Export for Vercel serverless
+module.exports = app;
